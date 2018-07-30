@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TaskAndBugLogger.Models;
 
 namespace TaskAndBugLogger
 {
@@ -22,6 +23,15 @@ namespace TaskAndBugLogger
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.Configure<Settings>(Options =>
+            {
+                Options.ConnectionString = Configuration.GetSection
+                ("MongoConnection:ConnectionString").Value;
+
+                Options.Database = Configuration.GetSection
+                ("MongoConnection:Database").Value;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

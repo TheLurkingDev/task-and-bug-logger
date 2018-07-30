@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using TaskAndBugLogger.Models;
+using MongoDB.Driver;
+using Microsoft.Extensions.Options;
 
 namespace TaskAndBugLogger.Controllers
 {
     public class HomeController : Controller
     {
+        IMongoDatabase _database;
+
+        public HomeController(IOptions<Settings> settings)
+        {
+            var mongoClient = new MongoClient(settings.Value.ConnectionString);
+            _database = mongoClient.GetDatabase(settings.Value.Database);
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return Json(_database.Client.Cluster.Description);
         }
 
         public IActionResult About()
