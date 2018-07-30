@@ -1,24 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using TaskAndBugLogger.Models;
-using MongoDB.Driver;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
+using TaskAndBugLogger.Data;
+using TaskAndBugLogger.Models;
 
 namespace TaskAndBugLogger.Controllers
 {
     public class HomeController : Controller
     {
-        IMongoDatabase _database;
+        public Data.MongoDBRepository mongoDBRepo;
 
         public HomeController(IOptions<Settings> settings)
         {
-            var mongoClient = new MongoClient(settings.Value.ConnectionString);
-            _database = mongoClient.GetDatabase(settings.Value.Database);
+            mongoDBRepo = new MongoDBRepository(settings);
         }
 
         public IActionResult Index()
         {
-            return Json(_database.Client.Cluster.Description);
+            return Json(mongoDBRepo.Database.Client.Cluster.Description);
         }
 
         public IActionResult About()
