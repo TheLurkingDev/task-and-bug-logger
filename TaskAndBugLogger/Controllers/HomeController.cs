@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using System.Diagnostics;
-using TaskAndBugLogger.Data;
+using TaskAndBugLogger.Interfaces;
 using TaskAndBugLogger.Models;
 
 namespace TaskAndBugLogger.Controllers
 {
     public class HomeController : Controller
     {
-        public Data.MongoDBRepository mongoDBRepo;
+        private readonly IWorkItemService workItemService;
 
-        public HomeController(IOptions<Settings> settings)
+        public HomeController(IWorkItemService service)
         {
-            mongoDBRepo = new MongoDBRepository(settings);
+            workItemService = service;
         }
 
         public IActionResult Index()
         {
-            return Json(mongoDBRepo.Database.Client.Cluster.Description);
+            var workItems = workItemService.GetAllWorkItems();
+            return View(workItems);
         }
 
         public IActionResult About()
