@@ -9,6 +9,9 @@ namespace TaskAndBugLogger.Data
     {
         public readonly IMongoDatabase Database;
 
+        // Expression-bodied property.
+        public IMongoCollection<WorkItem> WorkItems => Database.GetCollection<WorkItem>("workitem");        
+
         public MongoDBRepository(IOptions<Settings> settings)
         {
             try

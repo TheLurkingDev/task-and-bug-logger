@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TaskAndBugLogger.Data;
+using TaskAndBugLogger.Interfaces;
 using TaskAndBugLogger.Models;
 
 namespace TaskAndBugLogger
@@ -32,6 +34,8 @@ namespace TaskAndBugLogger
                 Options.Database = Configuration.GetSection
                 ("MongoConnection:Database").Value;
             });
+
+            services.AddScoped<IWorkItemService, WorkItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
