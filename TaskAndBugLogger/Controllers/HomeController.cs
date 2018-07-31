@@ -7,16 +7,16 @@ namespace TaskAndBugLogger.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IWorkItemService workItemService;
+        private readonly IWorkItemService _workItemService;
 
-        public HomeController(IWorkItemService service)
+        public HomeController(IWorkItemService workItemService)
         {
-            workItemService = service;
+            _workItemService = workItemService;
         }
 
         public IActionResult Index()
         {
-            var workItems = workItemService.GetAllWorkItems();
+            var workItems = _workItemService.GetAllWorkItems();
             return View(workItems);
         }
 

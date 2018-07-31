@@ -6,5 +6,6 @@ namespace TaskAndBugLogger.Interfaces
     public interface IWorkItemService
     {
         IEnumerable<WorkItem> GetAllWorkItems();
+        void InsertWorkItem(WorkItem workItem);
     }
 }

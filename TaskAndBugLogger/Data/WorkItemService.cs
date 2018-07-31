@@ -20,5 +20,10 @@ namespace TaskAndBugLogger.Data
         {
             return mongoDBRepo.WorkItems.Find(x => true).ToList();
         }
+
+        public void InsertWorkItem(WorkItem workItem)
+        {
+
+        }
     }
 }
