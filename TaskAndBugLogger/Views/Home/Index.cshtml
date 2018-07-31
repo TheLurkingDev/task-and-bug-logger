@@ -5,55 +5,74 @@
 }
 
 <h2>Index</h2>
-
+@if(Model.Count() > 0)
+{
 <p>
-    <a asp-action="Create">Create New</a>
+    @if(Model.Count() > 0)
+    {
+        @Html.ActionLink("Create New", "AddWorkItem/AddItem")
+    }
 </p>
+}
+
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Severity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.WorkItemType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AssignedTo)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Severity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkItemType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssignedTo)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Severity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkItemType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="6">
+                    There are no Work Items. @Html.ActionLink("Add your first Work Item.", "AddWorkItem");
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Severity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkItemType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignedTo)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+
+        }
     </tbody>
 </table>

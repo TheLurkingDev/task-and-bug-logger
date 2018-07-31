@@ -23,7 +23,7 @@ namespace TaskAndBugLogger.Data
 
         public void InsertWorkItem(WorkItem workItem)
         {
-
+            mongoDBRepo.WorkItems.InsertOne(workItem);
         }
     }
 }

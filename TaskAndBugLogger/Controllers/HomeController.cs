@@ -20,23 +20,9 @@ namespace TaskAndBugLogger.Controllers
             return View(workItems);
         }
 
-        public IActionResult About()
+        public ActionResult AddWorkItem()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return RedirectToAction("AddItem", "AddWorkItem");
         }
     }
 }
